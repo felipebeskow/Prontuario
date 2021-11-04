@@ -13,7 +13,7 @@ class InitApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
         ),
-        home: const LoginPage()
+        home: LoginPage()
     );
   }
 }

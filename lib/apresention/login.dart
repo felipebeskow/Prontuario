@@ -2,11 +2,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:prontuario/apresention/home.dart';
 import 'package:prontuario/control/authentication.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool? _loading = false;
+
+  loading(){
+    setState(() {
+      _loading = true;
+    });
+  }
 
   @override
   Widget build (BuildContext context) {
@@ -28,6 +42,7 @@ class LoginPage extends StatelessWidget {
                       Buttons.Google,
                       text: 'Faça login com o Google',
                       onPressed: () async {
+                        loading();
                         User? user = await Authentication.signInWithGoogle(
                             context: context);
                         if (user != null) {
@@ -47,6 +62,13 @@ class LoginPage extends StatelessWidget {
                   ),
                 );
               },
+            ),
+            const SizedBox(height: 100),
+            Visibility(
+              visible: _loading!,
+              child: LoadingBouncingLine.square(
+                backgroundColor: Colors.deepPurple,
+              )
             ),
           ],
         ),
