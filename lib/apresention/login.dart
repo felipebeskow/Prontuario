@@ -5,9 +5,10 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:prontuario/apresention/home.dart';
 import 'package:prontuario/control/authentication.dart';
+import '../control/global.dart' as global;
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -26,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build (BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Faça o Login'),
+        title: const Text('Prontuário - Login')
       ),
       body: Center(
         child: Column(
@@ -46,20 +47,19 @@ class _LoginPageState extends State<LoginPage> {
                         User? user = await Authentication.signInWithGoogle(
                             context: context);
                         if (user != null) {
+                          global.user = user;
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => HomePage(user: user),
+                              builder: (context) => HomePage(),
                             ),
                           );
                         }
-
                       }
                   );
+                // ignore: empty_statements
                 };
-                return const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.deepOrangeAccent,
-                  ),
+                return LoadingBouncingLine.square(
+                  backgroundColor: Colors.deepPurple,
                 );
               },
             ),
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
             Visibility(
               visible: _loading!,
               child: LoadingBouncingLine.square(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: Colors.teal,
               )
             ),
           ],

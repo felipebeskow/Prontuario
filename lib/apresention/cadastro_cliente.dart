@@ -1,0 +1,166 @@
+import 'package:flutter/material.dart';
+import 'package:prontuario/apresention/agendamentos.dart';
+import 'package:prontuario/apresention/home.dart';
+import 'package:prontuario/control/clientes_controller.dart';
+
+class CadastroCliente extends StatefulWidget{
+  const CadastroCliente({Key? key}) : super(key: key);
+
+  @override
+  State<CadastroCliente> createState() => _CadastroClienteState();
+}
+
+class _CadastroClienteState extends State<CadastroCliente> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ClientesController _clientes = ClientesController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: const Text('Prontuário - Cadastro Clientes'),
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.calendar_today),
+              onPressed:(){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const Agendamento(),
+                  ),
+                );
+              }
+          ),
+          IconButton(
+              icon: const Icon(Icons.home),
+              onPressed:(){
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                  (Route<dynamic> route) => route is HomePage
+                );
+              }
+          ),
+        ]
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Nome Completo:'),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Insira o nome completo do cliente',
+                    ),
+                    validator: (String? value){
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor insira o nome';
+                      }
+                      return null;
+                    },
+                    onSaved: (value){
+
+                    },
+                    initialValue: (_clientes.populado) ? _clientes.nome : null,
+                    onChanged: (value){
+                      _clientes.nome = value;
+                    },
+                  ),
+                  const SizedBox(height: 30.0,),
+                  const Text('Profissão:'),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Insira a profissão do cliente',
+                    ),
+                    validator: (String? value){
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor insira a profissão';
+                      }
+                      return null;
+                    },
+                    initialValue: (_clientes.populado) ? _clientes.profisao : null,
+                    onChanged: (value){
+                      _clientes.profisao = value;
+                    },
+                  ),
+                  const SizedBox(height: 30.0,),
+                  const Text('Telefone:'),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Insira o telefone do cliente',
+                    ),
+                    validator: (String? value){
+                      if ((value == null || value.isEmpty ) && value!.length < 8) {
+                        return 'Por favor insira o telefone';
+                      }
+                      return null;
+                    },
+                    initialValue: (_clientes.populado) ? _clientes.telefone : null,
+                    onChanged: (value){
+                      _clientes.telefone = value;
+                    },
+                  ),
+                  const SizedBox(height: 30.0,),
+                  const Text('Endereço:'),
+                  TextFormField(
+                      minLines: 2,
+                      maxLines: 5,
+                      decoration: const InputDecoration(
+                        hintText: 'Insira o endereço do cliente',
+                      ),
+                      initialValue: (_clientes.populado) ? _clientes.endereco : null,
+                    onChanged: (value){
+                      _clientes.endereco = value;
+                    },
+                  ),
+                  const SizedBox(height: 30.0,),
+                  const Text('Observações:'),
+                  TextFormField(
+                    minLines: 3,
+                    maxLines: 15,
+                    decoration: const InputDecoration(
+                      hintText: 'Insira o observações do cliente',
+                    ),
+                    initialValue: (_clientes.populado) ? _clientes.obeservacoes : null,
+                    onChanged: (value){
+                      _clientes.obeservacoes = value;
+                    },
+                  ),
+                  const SizedBox(height: 50.0,),
+                  Center(
+                      child:
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              String _message;
+                              _message = await _clientes.save();
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: (_message == 'Sucesso') ? const Text('Cliente salvo com sucesso!') : Text(_message)
+                              ),);
+                              if (_message == 'Sucesso') {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => HomePage(),
+                                    ),
+                                        (Route<dynamic> route) => route is HomePage
+                                );
+                              }
+                            }
+                          },
+                          child: const Text("Salvar"),
+                      )
+                  ),
+                ],
+              )
+          ),
+        ),
+      )
+    );
+  }
+}
