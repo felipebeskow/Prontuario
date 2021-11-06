@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
@@ -19,7 +20,10 @@ class _LoginPageState extends State<LoginPage> {
 
   loading(){
     setState(() {
-      _loading = true;
+      if (_loading == true)
+        _loading = false;
+      else
+        _loading = true;
     });
   }
 
@@ -46,21 +50,60 @@ class _LoginPageState extends State<LoginPage> {
                         loading();
                         User? user = await Authentication.signInWithGoogle(
                             context: context);
+
+
+/*
+                        cliente.add({
+                          'nome': _nome,
+                          'profissao': _profisao,
+                          'telefone': _telefone,
+                          'endereco': _endereco,
+                          'observacao': _obeservacoes
+                        }).then((value){
+                          return 'Sucesso';
+                        })
+                            .catchError((error){
+                          return error;
+                        });*/
                         if (user != null) {
-                          global.user = user;
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(),
-                            ),
-                          );
+                          CollectionReference usuarios = FirebaseFirestore.instance.collection('usuarios');
+
+
+                          try{
+                            var usuario = await usuarios.where(
+                                'uid', isEqualTo: user.uid
+                            ).get();
+
+                            usuarios.doc(usuario.docs.first.id).update({
+                              'lastLoginAt': DateTime.now(),
+                            });
+
+                            global.user = user;
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
+                          } catch(e){
+                            CollectionReference usuariosBlocked = FirebaseFirestore.instance.collection('usuarios-blocked');
+                            usuariosBlocked.add({
+                              'uid': user.uid,
+                              'email': user.email,
+                              'nome': user.displayName,
+                              'telefone': user.phoneNumber,
+                              'lastLoginAt': DateTime.now()
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text('Erro ao autenticar\nPeça para o administrador autorizar seu usuário')
+                            ),);
+                            loading();
+                          }
+
                         }
                       }
                   );
-                // ignore: empty_statements
-                };
-                return LoadingBouncingLine.square(
-                  backgroundColor: Colors.deepPurple,
-                );
+                }
+                return const Text('Carregando ...');
               },
             ),
             const SizedBox(height: 100),
