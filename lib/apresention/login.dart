@@ -51,23 +51,8 @@ class _LoginPageState extends State<LoginPage> {
                         User? user = await Authentication.signInWithGoogle(
                             context: context);
 
-
-/*
-                        cliente.add({
-                          'nome': _nome,
-                          'profissao': _profisao,
-                          'telefone': _telefone,
-                          'endereco': _endereco,
-                          'observacao': _obeservacoes
-                        }).then((value){
-                          return 'Sucesso';
-                        })
-                            .catchError((error){
-                          return error;
-                        });*/
                         if (user != null) {
                           CollectionReference usuarios = FirebaseFirestore.instance.collection('usuarios');
-
 
                           try{
                             var usuario = await usuarios.where(
@@ -93,8 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                               'telefone': user.phoneNumber,
                               'lastLoginAt': DateTime.now()
                             });
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text('Erro ao autenticar\nPeça para o administrador autorizar seu usuário')
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Erro ao autorizar acesso\n${user.displayName} peça para o administrador autorizar seu usuário')
                             ),);
                             loading();
                           }

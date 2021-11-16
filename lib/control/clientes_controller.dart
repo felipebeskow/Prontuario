@@ -65,7 +65,8 @@ class ClientesController {
       'profissao': _profisao,
       'telefone': _telefone,
       'endereco': _endereco,
-      'observacao': _obeservacoes
+      'observacao': _obeservacoes,
+      'creationAt': DateTime.now()
     }).then((value){
       return 'Sucesso';
     })

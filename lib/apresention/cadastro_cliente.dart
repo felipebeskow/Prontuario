@@ -64,12 +64,9 @@ class _CadastroClienteState extends State<CadastroCliente> {
                       }
                       return null;
                     },
-                    onSaved: (value){
-
-                    },
                     initialValue: (_clientes.populado) ? _clientes.nome : null,
                     onChanged: (value){
-                      _clientes.nome = value;
+                      _clientes.nome = value.toUpperCase();
                     },
                   ),
                   const SizedBox(height: 30.0,),
@@ -92,6 +89,7 @@ class _CadastroClienteState extends State<CadastroCliente> {
                   const SizedBox(height: 30.0,),
                   const Text('Telefone:'),
                   TextFormField(
+                    keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
                       hintText: 'Insira o telefone do cliente',
                     ),
@@ -109,6 +107,7 @@ class _CadastroClienteState extends State<CadastroCliente> {
                   const SizedBox(height: 30.0,),
                   const Text('Endereço:'),
                   TextFormField(
+                      keyboardType: TextInputType.streetAddress,
                       minLines: 2,
                       maxLines: 5,
                       decoration: const InputDecoration(
