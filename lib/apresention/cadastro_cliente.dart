@@ -26,7 +26,7 @@ class _CadastroClienteState extends State<CadastroCliente> {
               onPressed:(){
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const Agendamento(),
+                    builder: (context) => Agendamento(),
                   ),
                 );
               }
@@ -84,6 +84,24 @@ class _CadastroClienteState extends State<CadastroCliente> {
                     initialValue: (_clientes.populado) ? _clientes.profisao : null,
                     onChanged: (value){
                       _clientes.profisao = value;
+                    },
+                  ),
+                  const SizedBox(height: 30.0,),
+                  const Text('Data de Nascimento:'),
+                  TextFormField(
+                    keyboardType: TextInputType.datetime,
+                    decoration: const InputDecoration(
+                      hintText: 'Insira a data de nascimento para poder calcular a idade'
+                    ),
+                    validator: (String? value){
+                      if ((value == null || value.isEmpty ) && value!.length < 8) {
+                        return 'Por favor insira a data de nascimento';
+                      }
+                      return null;
+                    },
+                    initialValue: (_clientes.populado) ? _clientes.dataNascimento : null,
+                    onChanged: (value){
+                      _clientes.dataNascimento = value;
                     },
                   ),
                   const SizedBox(height: 30.0,),

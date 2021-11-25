@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a5edf83-347a-4160-b644-e79b1534c972" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/apresention/atendimento.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/apresention/cadastro_cliente.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apresention/cadastro_cliente.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/apresention/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apresention/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/apresention/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apresention/login.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/control/clientes_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/control/clientes_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/control/init_app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/control/init_app.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

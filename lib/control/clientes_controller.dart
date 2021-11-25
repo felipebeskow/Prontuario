@@ -9,6 +9,7 @@ class ClientesController {
   var _nome;
   var _profisao;
   var _telefone;
+  var _dataNascimento;
   var _endereco;
   var _obeservacoes;
   bool _populado = false;
@@ -37,6 +38,12 @@ class ClientesController {
     _telefone = telefone;
   }
 
+  get dataNascimento => _dataNascimento;
+
+  set dataNascimento(dataNascimento) {
+    _dataNascimento = dataNascimento;
+  }
+
   get endereco => _endereco;
 
   set endereco(endereco) {
@@ -53,6 +60,7 @@ class ClientesController {
     return 'Nome: ' + _nome +
       '\nProfissão: ' + _profisao +
       '\nTelefone: ' + _telefone +
+      '\nData de nascimento: ' + _dataNascimento +
       '\nEndereço: ' + _endereco +
       '\nObservações: ' + _obeservacoes;
   }
@@ -65,6 +73,7 @@ class ClientesController {
       'profissao': _profisao,
       'telefone': _telefone,
       'endereco': _endereco,
+      'dataNascimento': _dataNascimento,
       'observacao': _obeservacoes,
       'creationAt': DateTime.now()
     }).then((value){

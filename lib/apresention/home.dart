@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prontuario/apresention/agendamentos.dart';
+import 'package:prontuario/apresention/atendimento.dart';
 import 'package:prontuario/apresention/cadastro_cliente.dart';
 import '../control/global.dart' as global;
 
@@ -45,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   String _busca = '';
+  var _escolha;
 
   final CollectionReference _clientesFirecloud = FirebaseFirestore.instance.collection('clientes');
 
@@ -88,7 +90,42 @@ class _HomePageState extends State<HomePage> {
                   itemCount: _clientes.length,
                   itemBuilder: (context, index) {
                     if (_clientes[index] != null){
-                      return Text(_clientes[index].get('nome'));
+                      return Card(
+                        child: ListTile(
+                          trailing: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const Agendamento(),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.remove_red_eye)
+                              ),
+                            ],
+                          ),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Radio<dynamic>(
+                                value: _clientes[index],
+                                groupValue: _escolha,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _escolha = value;
+                                  });
+                                },
+                              ),
+                              Text(_clientes[index].get('nome')),
+                            ],
+                          ),
+                        )
+                      );
                     }
                     return const SizedBox(
                       height: 0,
@@ -101,8 +138,12 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: (){
-
+                    onPressed: (_escolha == null) ? null : (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const Agendamento(),
+                        ),
+                      );
                     },
                     child: const Text("Agendar"),
                   ),
@@ -110,8 +151,12 @@ class _HomePageState extends State<HomePage> {
                     width: 50.0,
                   ),
                   ElevatedButton(
-                    onPressed: (){
-
+                    onPressed: (_escolha == null) ? null : () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => Atendimento(_escolha),
+                        ),
+                      );
                     },
                     child: const Text("Atender"),
                   ),
