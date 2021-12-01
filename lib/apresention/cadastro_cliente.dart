@@ -99,10 +99,10 @@ class _CadastroClienteState extends State<CadastroCliente> {
                       }
                       return null;
                     },
-                    initialValue: (_clientes.populado) ? _clientes.dataNascimento : null,
-                    onChanged: (value){
+                    initialValue: (_clientes.populado) ? _clientes.dataNascimento.toString() : null,
+                    /*onChanged: (value){
                       _clientes.dataNascimento = value;
-                    },
+                    },*/
                     onTap: (){
                       Future<DateTime?> selecionaData = showDatePicker(
                         context: context,
@@ -115,7 +115,11 @@ class _CadastroClienteState extends State<CadastroCliente> {
                             child: (child != null) ? child : Text(''),
                           );
                         },
-                      );
+                      ).then((value) {
+                        setState(() {
+                          _clientes.dataNascimento = value;
+                        });
+                      });
                     },
                   ),
                   const SizedBox(height: 30.0,),

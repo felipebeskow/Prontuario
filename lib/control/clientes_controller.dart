@@ -9,7 +9,7 @@ class ClientesController {
   var _nome;
   var _profisao;
   var _telefone;
-  var _dataNascimento;
+  DateTime _dataNascimento = DateTime.now();
   var _endereco;
   var _obeservacoes;
   bool _populado = false;
@@ -60,7 +60,7 @@ class ClientesController {
     return 'Nome: ' + _nome +
       '\nProfissão: ' + _profisao +
       '\nTelefone: ' + _telefone +
-      '\nData de nascimento: ' + _dataNascimento +
+      '\nData de nascimento: ' + _dataNascimento.toString() +
       '\nEndereço: ' + _endereco +
       '\nObservações: ' + _obeservacoes;
   }
