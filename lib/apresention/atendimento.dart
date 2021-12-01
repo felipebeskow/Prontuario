@@ -5,7 +5,7 @@ import 'package:prontuario/apresention/home.dart';
 
 import 'package:intl/intl.dart';
 
-class Atendimento extends StatelessWidget{
+class Atendimento extends StatefulWidget{
   var _cliente;
 
   Atendimento(cliente):super(){
@@ -13,9 +13,14 @@ class Atendimento extends StatelessWidget{
   }
 
   @override
+  State<Atendimento> createState() => _AtendimentoState();
+}
+
+class _AtendimentoState extends State<Atendimento> {
+  @override
   Widget build(BuildContext context) {
-    var hoje = DateTime.now();
-    print(_cliente.id);
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    print(widget._cliente.id);
     return Scaffold(
       appBar: AppBar(
           title: const Text('Prontuário - Cadastro Clientes'),
@@ -49,26 +54,44 @@ class Atendimento extends StatelessWidget{
           child: Column(
             children: [
               Center(
-                child: Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: Text('Cliente: ' + _cliente.get('nome')),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Card(
+                      child: ListTile(
+                        title: Text('Cliente: ' + widget._cliente.get('nome')),
                         subtitle: Text(
-                          'Idade: ' + (DateTime.now().difference(DateTime.parse(_cliente.get('dataNascimento').toDate().toString())).inDays / 365 ).truncate().toString() + ' anos' + '\n' +
-                          'Profissão: ' + _cliente.get('profissao')
+                          'Idade: ' + (DateTime.now().difference(DateTime.parse(widget._cliente.get('dataNascimento').toDate().toString())).inDays / 365 ).truncate().toString() + ' anos' + '\n' +
+                          'Profissão: ' + widget._cliente.get('profissao')
                         ),
                       ),
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 30.0,),
+                          const Text('Data do Atendimento'),
+                          TextFormField(
+                            enabled: false,
+                            initialValue: ((DateTime.now().day<10) ? ('0' + DateTime.now().day.toString()) : (DateTime.now().day.toString())) + '/' +
+                                ((DateTime.now().month<10) ? ('0' + DateTime.now().month.toString()) : (DateTime.now().month.toString()))
+                                + '/' + DateTime.now().year.toString(),
+                          ),
+                          const SizedBox(height: 30.0,),
+                          const Text(''),
+                        ],
+                      ),
+                    ),
                     ],
                   ),
                 )
-              )
             ],
           ),
         ),
       ),
     );
   }
-  
 }
