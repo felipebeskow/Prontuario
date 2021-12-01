@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:prontuario/apresention/agendamentos.dart';
 import 'package:prontuario/apresention/home.dart';
 
+import 'package:intl/intl.dart';
+
 class Atendimento extends StatelessWidget{
   var _cliente;
 
@@ -54,7 +56,7 @@ class Atendimento extends StatelessWidget{
                       ListTile(
                         title: Text('Cliente: ' + _cliente.get('nome')),
                         subtitle: Text(
-                          'Idade: ' + _cliente.get('dataNascimento') + '\n' +
+                          'Idade: ' + (DateTime.now().difference(DateTime.parse(_cliente.get('dataNascimento').replaceAll('/','-'))).inDays / 365 ).truncate().toString() + ' anos' + '\n' +
                           'Profissão: ' + _cliente.get('profissao')
                         ),
                       ),

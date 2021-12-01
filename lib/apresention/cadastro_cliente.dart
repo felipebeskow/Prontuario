@@ -103,6 +103,20 @@ class _CadastroClienteState extends State<CadastroCliente> {
                     onChanged: (value){
                       _clientes.dataNascimento = value;
                     },
+                    onTap: (){
+                      Future<DateTime?> selecionaData = showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                        builder: (BuildContext context, Widget? child){
+                          return Theme(
+                            data: ThemeData.dark(),
+                            child: (child != null) ? child : Text(''),
+                          );
+                        },
+                      );
+                    },
                   ),
                   const SizedBox(height: 30.0,),
                   const Text('Telefone:'),

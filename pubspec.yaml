@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # Add the dependency for the Firebase Core Flutter SDK
   firebase_core: ^1.8.0
@@ -52,6 +54,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   loading_animations: ^2.1.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
