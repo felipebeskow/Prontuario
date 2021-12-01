@@ -9,7 +9,7 @@ class ClientesController {
   var _nome;
   var _profisao;
   var _telefone;
-  DateTime _dataNascimento = DateTime.now();
+  var _dataNascimento;
   var _endereco;
   var _obeservacoes;
   bool _populado = false;
@@ -63,6 +63,10 @@ class ClientesController {
       '\nData de nascimento: ' + _dataNascimento.toString() +
       '\nEndereço: ' + _endereco +
       '\nObservações: ' + _obeservacoes;
+  }
+
+  bool validaDataNascimento(){
+    return (_dataNascimento != null);
   }
 
   Future<String> save() async {

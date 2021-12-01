@@ -88,22 +88,8 @@ class _CadastroClienteState extends State<CadastroCliente> {
                   ),
                   const SizedBox(height: 30.0,),
                   const Text('Data de Nascimento:'),
-                  TextFormField(
-                    keyboardType: TextInputType.datetime,
-                    decoration: const InputDecoration(
-                      hintText: 'Insira a data de nascimento para poder calcular a idade'
-                    ),
-                    validator: (String? value){
-                      if ((value == null || value.isEmpty ) && value!.length < 8) {
-                        return 'Por favor insira a data de nascimento';
-                      }
-                      return null;
-                    },
-                    initialValue: (_clientes.populado) ? _clientes.dataNascimento.toString() : null,
-                    /*onChanged: (value){
-                      _clientes.dataNascimento = value;
-                    },*/
-                    onTap: (){
+                  TextButton(
+                    onPressed: (){
                       Future<DateTime?> selecionaData = showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
@@ -121,6 +107,7 @@ class _CadastroClienteState extends State<CadastroCliente> {
                         });
                       });
                     },
+                    child: (_clientes.validaDataNascimento()) ? Text(_clientes.dataNascimento.toString()) : Text('Insira a data de nascimento')
                   ),
                   const SizedBox(height: 30.0,),
                   const Text('Telefone:'),
@@ -172,7 +159,7 @@ class _CadastroClienteState extends State<CadastroCliente> {
                       child:
                       ElevatedButton(
                           onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
+                            if (_formKey.currentState!.validate() && _clientes.validaDataNascimento()) {
                               String _message;
                               _message = await _clientes.save();
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -186,6 +173,10 @@ class _CadastroClienteState extends State<CadastroCliente> {
                                         (Route<dynamic> route) => route is HomePage
                                 );
                               }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                  content: Text('Preencha corretamente todos os campos')
+                              ),);
                             }
                           },
                           child: const Text("Salvar"),
