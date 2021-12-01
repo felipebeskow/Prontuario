@@ -56,7 +56,7 @@ class Atendimento extends StatelessWidget{
                       ListTile(
                         title: Text('Cliente: ' + _cliente.get('nome')),
                         subtitle: Text(
-                          'Idade: ' + (DateTime.now().difference(DateTime.parse(_cliente.get('dataNascimento').replaceAll('/','-'))).inDays / 365 ).truncate().toString() + ' anos' + '\n' +
+                          'Idade: ' + (DateTime.now().difference(DateTime.parse(_cliente.get('dataNascimento').toDate().toString())).inDays / 365 ).truncate().toString() + ' anos' + '\n' +
                           'Profissão: ' + _cliente.get('profissao')
                         ),
                       ),
