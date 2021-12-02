@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prontuario/apresention/agendamentos.dart';
 import 'package:prontuario/apresention/home.dart';
+import 'package:prontuario/control/data_manipulation.dart';
 import 'package:prontuario/control/terapia_controller.dart';
 
 class Atendimento extends StatefulWidget{
@@ -75,7 +76,7 @@ class _AtendimentoState extends State<Atendimento> {
                           const Text('Data do Atendimento'),
                           TextFormField(
                             enabled: false,
-                            initialValue: _controller.mostraData(_controller.data),
+                            initialValue: Data.mostraData(_controller.data),
                           ),
                           const SizedBox(height: 10.0,),
                           const Text('Terapia'),

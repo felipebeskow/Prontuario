@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prontuario/apresention/agendamentos.dart';
 import 'package:prontuario/apresention/home.dart';
 import 'package:prontuario/control/clientes_controller.dart';
+import 'package:prontuario/control/data_manipulation.dart';
 
 class CadastroCliente extends StatefulWidget{
   const CadastroCliente({Key? key}) : super(key: key);
@@ -89,6 +90,9 @@ class _CadastroClienteState extends State<CadastroCliente> {
                   const SizedBox(height: 30.0,),
                   const Text('Data de Nascimento:'),
                   TextButton(
+                    style: TextButton.styleFrom(
+                      primary: (_clientes.validaDataNascimento()) ? (Colors.black87) :(Colors.black54),
+                      ),
                     onPressed: (){
                       Future<DateTime?> selecionaData = showDatePicker(
                         context: context,
@@ -107,7 +111,7 @@ class _CadastroClienteState extends State<CadastroCliente> {
                         });
                       });
                     },
-                    child: (_clientes.validaDataNascimento()) ? Text(_clientes.dataNascimento.toString()) : Text('Insira a data de nascimento')
+                    child: (_clientes.validaDataNascimento()) ? Text(Data.mostraData(_clientes.dataNascimento)) : const Text('Insira a data de nascimento')
                   ),
                   const SizedBox(height: 30.0,),
                   const Text('Telefone:'),
