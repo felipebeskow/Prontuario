@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prontuario/apresention/agendamentos.dart';
 import 'package:prontuario/apresention/atendimento.dart';
+import 'package:prontuario/apresention/cadastro_agendamento.dart';
 import 'package:prontuario/apresention/cadastro_cliente.dart';
 import '../control/global.dart' as global;
 
@@ -141,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: (_escolha == null) ? null : (){
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const Agendamento(),
+                          builder: (context) => CadastroAgendamento(),
                         ),
                       );
                     },
