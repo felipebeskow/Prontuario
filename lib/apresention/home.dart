@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: (_escolha == null) ? null : (){
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => CadastroAgendamento(),
+                          builder: (context) => CadastroAgendamento(_escolha),
                         ),
                       );
                     },

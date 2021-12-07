@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a5edf83-347a-4160-b644-e79b1534c972" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/control/data_manipulation.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/control/agendamento_controller.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/apresention/atendimento.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apresention/atendimento.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/apresention/cadastro_cliente.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apresention/cadastro_cliente.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/control/terapia_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/control/terapia_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/apresention/cadastro_agendamento.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apresention/cadastro_agendamento.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/apresention/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apresention/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/control/data_manipulation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/control/data_manipulation.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +59,6 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="true" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/android" />
     <property name="project.structure.last.edited" value="Project" />
