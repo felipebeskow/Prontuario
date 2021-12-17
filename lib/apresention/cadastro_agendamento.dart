@@ -37,7 +37,7 @@ class _CadastroAgendamentoState extends State<CadastroAgendamento> {
               onPressed:(){
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const Agendamento(),
+                    builder: (context) => Agendamento(),
                   ),
                 );
               }

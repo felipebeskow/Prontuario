@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prontuario/apresention/agendamentos.dart';
 import 'package:prontuario/apresention/atendimento.dart';
@@ -18,6 +19,8 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage> {
   List _clientes = [];
+
+  List _agendados = [];
 
   void setClientes(clientes){
     setState(() {
@@ -46,10 +49,28 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  verificaAgendamentos() async {
+    try{
+      await _agendamentosFirecloud.where(
+        'data',
+        isGreaterThan: Timestamp.now()
+      ).get().then((value) {
+        setState(() {
+          _agendados = value.docs;
+        });
+      });
+    } catch(e) {
+      setState(() {
+        _agendados = [];
+      });
+    }
+  }
+
   String _busca = '';
   var _escolha;
 
   final CollectionReference _clientesFirecloud = FirebaseFirestore.instance.collection('clientes');
+  final CollectionReference _agendamentosFirecloud = FirebaseFirestore.instance.collection('agendamentos');
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +83,7 @@ class _HomePageState extends State<HomePage> {
             onPressed:(){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const Agendamento(),
+                  builder: (context) => Agendamento(),
                 ),
               );
             }
@@ -81,9 +102,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onEditingComplete: () {
                   buscaClientes(_busca);
+                  verificaAgendamentos();
                 },
                 onChanged: (value) {
-                  _busca = value;
+                  setState(() {
+                    _busca = value;
+                  });
                 },
               ),
               Expanded(
@@ -101,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => const Agendamento(),
+                                      builder: (context) => Agendamento(),
                                     ),
                                   );
                                 },
